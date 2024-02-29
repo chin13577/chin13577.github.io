@@ -515,6 +515,11 @@ fieldset[disabled] .btn-success:hover {
     font-size: 20px;
     line-height: 45px
 }
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 hr.style14 {
     border: 0;
