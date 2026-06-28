@@ -28,6 +28,9 @@
             width: 70%;
             margin: auto;
         }
+        #videoCarousel .carousel-control {
+            bottom: 15%;
+        }
     </style>
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -143,19 +146,50 @@
                 </div>
             </div>
             <div class="row">
-                <object class="embed-responsive-item">
-                    <div class="video-container">
-                        <video controls height="740">
-                            <source src="img/bountybraw/gameplay.mp4" />
-                        </video>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    <div id="videoCarousel" class="carousel slide" data-ride="false" data-interval="false">
+                        <ol class="carousel-indicators" style="z-index: 3">
+                            <li data-target="#videoCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#videoCarousel" data-slide-to="1"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <video controls loop autoplay muted width="100%">
+                                    <source src="img/bounty-brawl/bb-overview.mp4" />
+                                </video>
+                                <p class="text-center"><strong>Overview</strong></p>
+                            </div>
+                            <div class="item">
+                                <video controls loop muted width="100%">
+                                    <source src="img/bounty-brawl/bb-key-binding.mp4" />
+                                </video>
+                                <p class="text-center"><strong>Key Binding System</strong></p>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#videoCarousel" role="button" data-slide="prev">
+                            <span class="icon-prev" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#videoCarousel" role="button" data-slide="next">
+                            <span class="icon-next" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
-                </object>
-                <p class="text-center">
-                    <strong>Gameplay sample</strong>
-                </p>
+                </div>
+                <div class="col-sm-1"></div>
             </div>
         </div>
     </section>
+    <script>
+        $('#videoCarousel').on('slide.bs.carousel', function () {
+            $(this).find('.active video')[0].pause();
+        }).on('slid.bs.carousel', function () {
+            var v = $(this).find('.active video')[0];
+            v.currentTime = 0;
+            v.play();
+        });
+    </script>
     <hr>
 
     <!-- screenshot Section -->
