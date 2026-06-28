@@ -31,6 +31,62 @@
             width: 70%;
             margin: auto;
         }
+
+        .project-card {
+            display: block;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            color: inherit;
+            text-decoration: none;
+            transition: transform .15s, box-shadow .15s;
+            height: calc(100% - 24px);
+        }
+
+        .project-card:hover,
+        .project-card:focus {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-card-img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            display: block;
+            background: #222;
+        }
+
+        /* Fallback tile when a project has no image */
+        .project-card-noimg {
+            height: 170px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 16px;
+            color: #fff;
+            font-size: 1.2em;
+            background: linear-gradient(135deg, #18bc9c, #2c3e50);
+        }
+
+        .project-card-body {
+            padding: 12px 14px;
+        }
+
+        .project-card-title {
+            margin: 0 0 6px;
+            font-size: 1.15em;
+        }
+
+        .project-card-desc {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+        }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -140,6 +196,16 @@
                                             <strong>Transcript</strong>
                                         </a>
                                     </li>
+                                    <li>
+                                        <p>
+                                            <strong>|</strong>
+                                        </p>
+                                    </li>
+                                    <li style="padding-right: 5px;padding-left: 5px;">
+                                        <a href="https://www.linkedin.com/in/chinnawat-siri" target="_blank" rel="noopener">
+                                            <strong>LinkedIn</strong>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- <hr class="style14"> -->
@@ -166,7 +232,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="www.linkedin.com/in/chinnawat-siri" class="btn-social btn-outline">
+                                        <a href="https://www.linkedin.com/in/chinnawat-siri" class="btn-social btn-outline">
                                             <span class="sr-only">Linkedin</span>
                                             <i class="fa fa-fw fa-linkedin"></i>
                                         </a>
@@ -349,34 +415,57 @@
                 </div>
             </div>
 
-            <div style="padding: 0em; margin:0.5em;">
-
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="dicemontactic.html">Dicemon Tactic
-                        <font size="3" color="grey"> - Real-time Online Strategy Board Game</font>
+            <div class="row" style="margin:0.5em 0;">
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="dicemontactic.html">
+                        <img class="project-card-img" src="img/gendice/SHOP_V3_2-edit.png" alt="Dicemon Tactic">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Dicemon Tactic</h4>
+                            <p class="project-card-desc">Real-time multiplayer strategy board game — built the core
+                                gameplay loop, minigame framework, and skill system on Mirror Networking.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="leagueofbomb.html">League of Bomb
-                        <font size="3" color="grey"> - Multiplayer Bomberman-inspired Action Game</font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="leagueofbomb.html">
+                        <img class="project-card-img" src="img/lob/banner.webp" alt="League of Bomb">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">League of Bomb</h4>
+                            <p class="project-card-desc">Bomberman-inspired multiplayer brawler — engineered the bot AI
+                                with Behavior Trees on Photon Quantum ECS.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="bountybraw.html">Bounty Brawl
-                        <font size="3" color="grey"> - Multiplayer Action Roguelite Shooter</font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="bountybraw.html">
+                        <img class="project-card-img" src="img/bounty-brawl/thumbnail.jpg" alt="Bounty Brawl">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Bounty Brawl</h4>
+                            <p class="project-card-desc">Co-op action roguelite shooter shipped on Steam — built enemy AI
+                                &amp; perks (FSM) and fixed netcode on Photon Fusion.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="evilsoul.html">Evil
-                        Soul
-                        <font size="3" color="grey"> - The Idle RPG Game</font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="evilsoul.html">
+                        <img class="project-card-img" src="img/evilsoul/gameplay02.jpg" alt="Evil Soul">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Evil Soul</h4>
+                            <p class="project-card-desc">Idle RPG I led from prototype to App Store / Play Store launch —
+                                combat, skills, shop, and a node-based skill editor.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="athenion.html">Athenion: Tactical CCG
-                        <font size="3" color="grey"> - An Online Card Game </font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="athenion.html">
+                        <img class="project-card-img" src="img/athenion/athenion-banner.png" alt="Athenion: Tactical CCG">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Athenion: Tactical CCG</h4>
+                            <p class="project-card-desc">Shipped tactical collectible card game — designed the gameplay
+                                architecture and card-ability authoring tools.</p>
+                        </div>
                     </a>
-                </h3>
+                </div>
             </div>
 
             <hr>
@@ -386,27 +475,44 @@
                     <hr class="style14">
                 </div>
             </div>
-            <div style="padding: 0em; margin:0.5em;">
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="dexel.html">Dexel
-                        <font size="3" color="grey">- GameFi using Cocos Creator</font>
+            <div class="row" style="margin:0.5em 0;">
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="dexel.html">
+                        <img class="project-card-img" src="img/dexel/dexel-land.jpg" alt="Dexel">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Dexel</h4>
+                            <p class="project-card-desc">GameFi battle prototype built in Cocos Creator.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="colosseum.html">Colosseum
-                        <font size="3" color="grey">- Action Online Game using Unity3d and NodeJs </font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="colosseum.html">
+                        <img class="project-card-img" src="img/colosseum/gameplay1.PNG" alt="Colosseum">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Colosseum</h4>
+                            <p class="project-card-desc">Real-time action arena prototype with a custom Node.js
+                                authoritative server.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="musebattle.html"> Muse Battle Project
-                        <font size="3" color="grey">A 2D RPG game </font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="musebattle.html">
+                        <img class="project-card-img" src="img/museBattle/image1.jpg" alt="Muse Battle">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Muse Battle</h4>
+                            <p class="project-card-desc">2D RPG prototype with Behavior-Tree-driven enemies.</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="parryencounter.html"> Parry Encounter
-                        <font size="3" color="grey">A Action Game </font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="parryencounter.html">
+                        <img class="project-card-img" src="img/parryEncounter/parry.jpg" alt="Parry Encounter">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Parry Encounter</h4>
+                            <p class="project-card-desc">Parry-focused action combat prototype.</p>
+                        </div>
                     </a>
-                </h3>
+                </div>
             </div>
             <hr>
             <div class="row">
@@ -415,28 +521,35 @@
                     <hr class="style14">
                 </div>
             </div>
-            <div style="padding: 0em; margin:0.5em;">
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="senior-project.html">Senior Project
-                        <font size="3" color="grey">- Development of Webcam-Based Online Fighting Game
-                            (WebcamFight)(2017)</font>
+            <div class="row" style="margin:0.5em 0;">
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="senior-project.html">
+                        <img class="project-card-img" src="img/webcamfight/1.LoginScene.png" alt="Senior Project (WebcamFight)">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Senior Project (WebcamFight)</h4>
+                            <p class="project-card-desc">Webcam-controlled online fighting game — OpenCV + ML motion input
+                                over Photon multiplayer (2017 thesis).</p>
+                        </div>
                     </a>
-                </h3>
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="ninjaken.html">Ninjaken
-                        <font size="3" color="grey">- National Software Contest (2016)</font>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <a class="project-card" href="blender3d.html">
+                        <img class="project-card-img" src="img/blender3d/Ninja.png" alt="3D Models">
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">3D Models</h4>
+                            <p class="project-card-desc">Character &amp; creature models made in Blender (2016).</p>
+                        </div>
                     </a>
-                </h3>
-                <!-- <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="otherprojects.html">Mini games
-                        <font size="3" color="grey">- (2017-2018)</font>
-                    </a>
-                </h3> -->
-                <h3 class="name" style="font-size:1.5em;text-align: left;">
-                    <a href="blender3d.html">3D Models
-                        <font size="3" color="grey">- (2016)</font>
-                    </a>
-                </h3>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="project-card" style="cursor:default;">
+                        <div class="project-card-noimg">Ninjaken</div>
+                        <div class="project-card-body">
+                            <h4 class="project-card-title">Ninjaken</h4>
+                            <p class="project-card-desc">National Software Contest finalist (2016).</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <hr>
@@ -449,7 +562,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            Copyright &copy; Chinnawat Sirima 2019
+                            Copyright &copy; Chinnawat Sirima 2026
                         </div>
                     </div>
                 </div>
