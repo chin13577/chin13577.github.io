@@ -112,6 +112,132 @@
             background: #e0d4f5;
             color: #4b2a8a;
         }
+
+        /* Experience timeline */
+        .timeline {
+            position: relative;
+            margin-top: 12px;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 104px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: #d8e0e5;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 128px;
+            margin-bottom: 26px;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 98px;
+            top: 4px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #18bc9c;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #18bc9c;
+        }
+
+        /* Current role: highlighted dot with halo */
+        .timeline-item.current::before {
+            background: #fff;
+            border: 4px solid #18bc9c;
+            box-shadow: 0 0 0 4px rgba(24, 188, 156, 0.25);
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 90px;
+            text-align: right;
+            font-size: 12px;
+            line-height: 1.3;
+            color: #18bc9c;
+            font-weight: 700;
+        }
+
+        .timeline-present {
+            display: inline-block;
+            margin-top: 3px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            background: #18bc9c;
+            padding: 1px 7px;
+            border-radius: 20px;
+            letter-spacing: 0.04em;
+        }
+
+        .timeline-divider {
+            position: relative;
+            padding-left: 128px;
+            margin: 0 0 18px;
+            font-size: 13px;
+            color: #666;
+            text-align: left;
+        }
+
+        .timeline-divider::before {
+            display: none;
+        }
+
+        .timeline-role {
+            margin: 0 0 2px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .timeline-note {
+            font-size: 12px;
+            color: #888;
+            font-weight: 400;
+            margin: 0 0 8px;
+            text-align: left;
+        }
+
+        .timeline-body {
+            padding-left: 0;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        .timeline-body p {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .timeline::before {
+                left: 6px;
+            }
+            .timeline-item {
+                padding-left: 28px;
+                padding-top: 24px;
+            }
+            .timeline-item::before {
+                left: 0;
+            }
+            .timeline-date {
+                position: static;
+                width: auto;
+                text-align: left;
+                margin-bottom: 4px;
+            }
+            .timeline-divider {
+                padding-left: 28px;
+            }
+        }
     </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -278,110 +404,111 @@
 
                                     <h1 style="font-size:2.0em;  text-align: left;">Experience</h1>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>Nanuq Co., Ltd. (Senior Game Developer)</strong><br />
-                                        APR 2024 - PRESENT
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p><strong><a href="dicemontactic.html">Dicemon Tactic</a></strong> <span
-                                                style="color:#888;">(Unity · Mobile)</span><br />
-                                            Built the core gameplay loop, minigame framework, and skill system on Mirror
-                                            Networking, along with the full asset bundle pipeline and out-game UI flow
-                                            covering Main Menu, Shop, In-App Purchases, Ads, Leaderboard, and Community Hall.</p>
+                                    <div class="timeline">
+                                        <div class="timeline-item current">
+                                            <p class="timeline-date">APR 2024<br />-<br /><span class="timeline-present">PRESENT</span></p>
+                                            <p class="timeline-role">Nanuq Co., Ltd. (Senior Game Developer)</p>
+                                            <div class="timeline-body">
+                                                <p><strong><a href="dicemontactic.html">Dicemon Tactic</a></strong> <span
+                                                        style="color:#888;">(Unity · Mobile)</span><br />
+                                                    Built the core gameplay loop, minigame framework, and skill system on Mirror
+                                                    Networking, along with the full asset bundle pipeline and out-game UI flow
+                                                    covering Main Menu, Shop, In-App Purchases, Ads, Leaderboard, and Community Hall.</p>
 
-                                        <p><strong><a href="bountybraw.html">Bounty Brawl</a></strong> <span
-                                                style="color:#888;">(Unity · PC / Steam · Shipped)</span><br />
-                                            Implemented enemy AI attack patterns and perks via FSM, polished the game, and resolved Photon
-                                            Fusion networking bugs ahead of the Steam launch.</p>
+                                                <p><strong><a href="bountybraw.html">Bounty Brawl</a></strong> <span
+                                                        style="color:#888;">(Unity · PC / Steam · Shipped)</span><br />
+                                                    Implemented enemy AI attack patterns and perks via FSM, polished the game, and resolved Photon
+                                                    Fusion networking bugs ahead of the Steam launch.</p>
 
-                                        <p><strong><a href="leagueofbomb.html">League of Bomb</a></strong> <span
-                                                style="color:#888;">(Unity · Mobile)</span><br />
-                                            Built the multiplayer bot AI using Behavior Trees on Photon Quantum ECS,
-                                            enabling bots to fill live matches seamlessly.</p>
-                                        <p><strong><a href="prototype-horror-game.html">Prototype Horror
-                                                    Game</a></strong> <span style="color:#888;">(Unity ·
-                                                Mobile · Prototype)</span><br />
-                                            Prototyped a multiplayer horror experience on Photon Quantum ECS, including
-                                            bot behavior driven by Behavior Trees.</p>
-                                    </div>
+                                                <p><strong><a href="leagueofbomb.html">League of Bomb</a></strong> <span
+                                                        style="color:#888;">(Unity · Mobile)</span><br />
+                                                    Built the multiplayer bot AI using Behavior Trees on Photon Quantum ECS,
+                                                    enabling bots to fill live matches seamlessly.</p>
+                                                <p><strong><a href="prototype-horror-game.html">Prototype Horror
+                                                            Game</a></strong> <span style="color:#888;">(Unity ·
+                                                        Mobile · Prototype)</span><br />
+                                                    Prototyped a multiplayer horror experience on Photon Quantum ECS, including
+                                                    bot behavior driven by Behavior Trees.</p>
+                                            </div>
+                                        </div>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>GIANT WHALE STUDIO Co., Ltd. (Lead Game Developer)</strong><br />
-                                        JUN 2023 - MAR 2024
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p><strong><a href="./evilsoul.html">Evil Soul</a></strong> <span
-                                                style="color:#888;">(Unity · Mobile · Shipped)</span><br />
-                                            Led this game from prototype all the way to store release. Built the core
-                                            gameplay systems — combat, skills, and shop — along with the player data
-                                            structure. Connected PlayFab and a custom backend server for data storage.
-                                            Also built a skill editor tool using XNode so designers could create skills
-                                            without writing code. Handled asset management with Unity Addressables and
-                                            released both Closed Beta and Open Beta on the Play Store and App Store.</p>
-                                    </div>
+                                        <div class="timeline-item">
+                                            <p class="timeline-date">JUN 2023<br />-<br />MAR 2024</p>
+                                            <p class="timeline-role">GIANT WHALE STUDIO Co., Ltd. (Lead Game Developer)</p>
+                                            <div class="timeline-body">
+                                                <p><strong><a href="./evilsoul.html">Evil Soul</a></strong> <span
+                                                        style="color:#888;">(Unity · Mobile · Shipped)</span><br />
+                                                    Led this game from prototype all the way to store release. Built the core
+                                                    gameplay systems — combat, skills, and shop — along with the player data
+                                                    structure. Connected PlayFab and a custom backend server for data storage.
+                                                    Also built a skill editor tool using XNode so designers could create skills
+                                                    without writing code. Handled asset management with Unity Addressables and
+                                                    released both Closed Beta and Open Beta on the Play Store and App Store.</p>
+                                            </div>
+                                        </div>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>EXP GAMING Co., Ltd. (Senior Game Developer → Lead Game
-                                            Developer)</strong><br />
-                                        JUL 2020 - JAN 2023 <em style="font-size:13px;">(Promoted to Lead, Oct
-                                            2022)</em>
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p>Led the frontend game developer team and ran code reviews. Built the shared
-                                            HTML5 game foundation — asset loading flow, backend connection layer, and
-                                            core game-phase template — used across all team projects (Cocos Creator).
-                                        </p>
+                                        <div class="timeline-item">
+                                            <p class="timeline-date">JUL 2020<br />-<br />JAN 2023</p>
+                                            <p class="timeline-role">EXP GAMING Co., Ltd. (Senior Game Developer → Lead Game Developer)</p>
+                                            <p class="timeline-note">Promoted to Lead, Oct 2022</p>
+                                            <div class="timeline-body">
+                                                <p>Led the frontend game developer team and ran code reviews. Built the shared
+                                                    HTML5 game foundation — asset loading flow, backend connection layer, and
+                                                    core game-phase template — used across all team projects (Cocos Creator).
+                                                </p>
 
-                                        <p><strong><a href="scc.html">Super Casino Club</a></strong> <span
-                                                style="color:#888;">(Unity · Mobile)</span><br />
-                                            Designed the full game flow and data-sync pipeline between the Unity app and
-                                            an HTML5 mini-game running inside a WebView.</p>
-                                    </div>
+                                                <p><strong><a href="scc.html">Super Casino Club</a></strong> <span
+                                                        style="color:#888;">(Unity · Mobile)</span><br />
+                                                    Designed the full game flow and data-sync pipeline between the Unity app and
+                                                    an HTML5 mini-game running inside a WebView.</p>
+                                            </div>
+                                        </div>
 
-                                    <p style="text-align: left;font-size: 13px; color:#666;">Earlier roles</p>
+                                        <p class="timeline-divider">Earlier roles</p>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>MOTIONX STUDIO Co., Ltd. (Game Developer)</strong><br />
-                                        APR 2020 - JUN 2020
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p><strong><a
-                                                    href="https://store.steampowered.com/app/1159860/Dash_Dash_World/">Dash
-                                                    Dash World</a></strong> <span style="color:#888;">(Unreal · Oculus
-                                                VR)</span><br />
-                                            Implemented a Motion Tracker for player bot animation, mascot AI behavior,
-                                            and the Tutorial and Emote systems.</p>
-                                    </div>
+                                        <div class="timeline-item">
+                                            <p class="timeline-date">APR 2020<br />-<br />JUN 2020</p>
+                                            <p class="timeline-role">MOTIONX STUDIO Co., Ltd. (Game Developer)</p>
+                                            <div class="timeline-body">
+                                                <p><strong><a
+                                                            href="https://store.steampowered.com/app/1159860/Dash_Dash_World/">Dash
+                                                            Dash World</a></strong> <span style="color:#888;">(Unreal · Oculus
+                                                        VR)</span><br />
+                                                    Implemented a Motion Tracker for player bot animation, mascot AI behavior,
+                                                    and the Tutorial and Emote systems.</p>
+                                            </div>
+                                        </div>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>ZERO-bit Co., Ltd. (Game Developer → Deputy Senior)</strong><br />
-                                        JUN 2018 - MAR 2020 <em style="font-size:13px;">(Promoted to Deputy Senior, Jan
-                                            2020)</em>
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p><strong><a href="athenion.html">Athenion: Tactical CCG</a></strong> <span
-                                                style="color:#888;">(Unity · Mobile · Shipped)</span><br />
-                                            Designed and implemented the gameplay system architecture, built card
-                                            ability authoring tools, and implemented the Tutorial and Story mode
-                                            systems.</p>
-                                    </div>
+                                        <div class="timeline-item">
+                                            <p class="timeline-date">JUN 2018<br />-<br />MAR 2020</p>
+                                            <p class="timeline-role">ZERO-bit Co., Ltd. (Game Developer → Deputy Senior)</p>
+                                            <p class="timeline-note">Promoted to Deputy Senior, Jan 2020</p>
+                                            <div class="timeline-body">
+                                                <p><strong><a href="athenion.html">Athenion: Tactical CCG</a></strong> <span
+                                                        style="color:#888;">(Unity · Mobile · Shipped)</span><br />
+                                                    Designed and implemented the gameplay system architecture, built card
+                                                    ability authoring tools, and implemented the Tutorial and Story mode
+                                                    systems.</p>
+                                            </div>
+                                        </div>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>Any.imedia Co., Ltd. (Unity Programmer)</strong><br />
-                                        JUN 2017 - MAY 2018
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p>Developed interactive media installations for museums and events using Unity3D, Kinect V.2, Leap Motion, and HTC Vive.<br />
-                                            Consulted with clients to gather requirements and translated them into interactive media systems.</p>
-                                    </div>
+                                        <div class="timeline-item">
+                                            <p class="timeline-date">JUN 2017<br />-<br />MAY 2018</p>
+                                            <p class="timeline-role">Any.imedia Co., Ltd. (Unity Programmer)</p>
+                                            <div class="timeline-body">
+                                                <p>Developed interactive media installations for museums and events using Unity3D, Kinect V.2, Leap Motion, and HTC Vive.<br />
+                                                    Consulted with clients to gather requirements and translated them into interactive media systems.</p>
+                                            </div>
+                                        </div>
 
-                                    <p style="text-align: left;font-size: 16px;">
-                                        <strong>KiriMaru Co., Ltd. (Game Developer Intern)</strong><br />
-                                        MAY 2016 - JUL 2016
-                                    </p>
-                                    <div style="padding-left: 1.5em; font-size: 14px; text-align: left;">
-                                        <p>Created mini-games in Unity3D, collaborated with an intern game designer, and
-                                            tracked bugs in company products.</p>
+                                        <div class="timeline-item">
+                                            <p class="timeline-date">MAY 2016<br />-<br />JUL 2016</p>
+                                            <p class="timeline-role">KiriMaru Co., Ltd. (Game Developer Intern)</p>
+                                            <div class="timeline-body">
+                                                <p>Created mini-games in Unity3D, collaborated with an intern game designer, and
+                                                    tracked bugs in company products.</p>
+                                            </div>
+                                        </div>
                                     </div>
 
                                 </div>
