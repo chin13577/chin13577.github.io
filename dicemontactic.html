@@ -28,6 +28,7 @@
             width: 70%;
             margin: auto;
         }
+
         #videoCarousel .carousel-control {
             bottom: 15%;
         }
@@ -82,7 +83,8 @@
         <header>
             <div class="container" id="maincontent" tabindex="-1" style="padding-bottom: 0px">
                 <div class="row">
-                    <img src="img/gendice/banner.png" class="img-responsive img-rounded center-block" alt="Dicemon Tactic">
+                    <img src="img/gendice/banner.png" class="img-responsive img-rounded center-block"
+                        alt="Dicemon Tactic">
                 </div>
                 <div class="row">
                     <div class="col-sm-3" style="border: 1px solid #e1e8ed;">
@@ -107,7 +109,8 @@
                                 <div class="row col-sm-12">
                                     <p style="text-align: left;font-size: 16px;">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dicemon Tactic is a
-                                        real-time online strategy board game.
+                                        multiplayer Monopoly-style strategy game where players roll dice, buy and own
+                                        buildings, and use Dicemon skills to control the board.
                                         <br>
                                     </p>
                                 </div>
@@ -121,8 +124,10 @@
                                 </h2>
                                 <p style="text-align: left;font-size: 16px;">
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    Developed core in-game systems, including the gameplay loop, minigame framework, and skill system.
-                                    Implemented out-game systems such as asset bundle management and UI navigation flows for the
+                                    Developed core in-game systems, including the gameplay loop, minigame framework, and
+                                    skill system.
+                                    Implemented out-game systems such as asset bundle management and UI navigation flows
+                                    for the
                                     Main Menu, Shop, Leaderboard, and other features.<br>
                                 </p>
                             </div>
@@ -197,47 +202,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 style="font-size:2.0em; margin:1.5em; text-align: left;">Screenshot</h2>
+                    <h2 style="font-size:2.0em; margin:1.5em; text-align: left;">Skill Graph</h2>
                     <hr class="style14">
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-1">
+                <div class="row col-sm-12">
+                    <p style="text-align: left;font-size: 16px;">
+                        &emsp; The skill graph is implemented using XNode, a ScriptableObject-based NodeGraph system. I
+                        designed it to make Dicemon skills easier to create and maintain using Unity Addressables, while
+                        also making it easier to manage command-flow execution between the dedicated server and game
+                        client.
+                        <br>
+                    </p>
                 </div>
-                <div class="col-sm-10">
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators" style="z-index: 3">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                        </ol>
-
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                            <div class="item active">
-                                <img src="img/gendice/thumbnail.png" class="img-responsive img-rounded center-block"
-                                    alt="Dicemon Tactic Shop" style="width: 70%;">
-                            </div>
-                            <div class="item">
-                                <img src="img/gendice/skill-graph.png" class="img-responsive img-rounded center-block"
-                                    alt="Dicemon Tactic Skill Graph" style="width: 70%;">
-                            </div>
-                        </div>
-
-                        <!-- Left and right controls -->
-                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                            <span class="icon-prev" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                            <span class="icon-next" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-sm-1">
-                </div>
+                <img src="img/gendice/skill-graph.png" class="img-responsive img-rounded center-block"
+                    alt="Dicemon Tactic Skill Graph" style="width: 100%;">
             </div>
+        </div>
         </div>
     </section>
     <hr>
@@ -247,7 +229,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Copyright &copy; Chinnawat Sirima 2019
+                        Copyright &copy; Chinnawat Sirima 2026
                     </div>
                 </div>
             </div>
