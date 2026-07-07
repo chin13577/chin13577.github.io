@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>คู่มือสัญญา — Contract Notes</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#1c2430; --muted:#6b7684;
+    --line:#e4e8ee; --accent:#2f6df6; --accent-soft:#eaf1ff;
+    --sh:0 1px 3px rgba(20,30,50,.06),0 6px 24px rgba(20,30,50,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{--bg:#0f1319;--panel:#161c25;--ink:#e7ecf3;--muted:#93a0b0;
+    --line:#242c38;--accent:#5b8bff;--accent-soft:#1a2536;
+    --sh:0 1px 3px rgba(0,0,0,.4),0 8px 30px rgba(0,0,0,.35);}
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"SF Pro Text","Sarabun","Noto Sans Thai",system-ui,sans-serif;
+    font-size:17px;line-height:1.65;
+    -webkit-text-size-adjust:100%;
+  }
+  .wrap{display:flex;min-height:100%}
+
+  /* Sidebar */
+  aside{
+    width:300px;flex:0 0 300px;background:var(--panel);
+    border-right:1px solid var(--line);
+    height:100vh;position:sticky;top:0;overflow-y:auto;
+    padding:max(20px,env(safe-area-inset-top)) 16px 40px;
+    -webkit-overflow-scrolling:touch;
+  }
+  aside h1{font-size:19px;margin:6px 8px 4px;letter-spacing:-.2px}
+  aside .sub{font-size:13px;color:var(--muted);margin:0 8px 18px}
+  .group{margin:18px 0 6px 8px;font-size:12px;font-weight:700;
+    text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  nav a{
+    display:flex;gap:10px;align-items:baseline;
+    padding:10px 12px;border-radius:11px;color:var(--ink);
+    text-decoration:none;font-size:15.5px;line-height:1.35;
+  }
+  nav a .n{color:var(--muted);font-variant-numeric:tabular-nums;
+    font-size:13px;min-width:22px}
+  nav a.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+  nav a.active .n{color:var(--accent)}
+  nav a:active{background:var(--accent-soft)}
+
+  /* Content */
+  main{flex:1;min-width:0;display:flex;justify-content:center}
+  .doc{width:100%;max-width:760px;
+    padding:48px clamp(20px,5vw,56px) 120px;}
+  .doc h1{font-size:30px;line-height:1.25;letter-spacing:-.4px;margin:.2em 0 .6em}
+  .doc h2{font-size:22px;margin:1.6em 0 .5em;padding-bottom:.25em;
+    border-bottom:1px solid var(--line)}
+  .doc h3{font-size:18px;margin:1.3em 0 .4em}
+  .doc p{margin:.7em 0}
+  .doc ul,.doc ol{padding-left:1.35em;margin:.6em 0}
+  .doc li{margin:.3em 0}
+  .doc blockquote{margin:1em 0;padding:.6em 1em;border-left:3px solid var(--accent);
+    background:var(--accent-soft);border-radius:0 10px 10px 0;color:var(--ink)}
+  .doc blockquote p{margin:.2em 0}
+  .doc code{background:var(--accent-soft);padding:.12em .4em;border-radius:6px;
+    font-size:.88em;font-family:"SF Mono",ui-monospace,Menlo,monospace}
+  .doc pre{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;overflow-x:auto;box-shadow:var(--sh)}
+  .doc pre code{background:none;padding:0}
+  .doc a{color:var(--accent);text-decoration:none;word-break:break-word}
+  .doc table{border-collapse:collapse;width:100%;margin:1em 0;display:block;overflow-x:auto}
+  .doc th,.doc td{border:1px solid var(--line);padding:8px 12px;text-align:left}
+  .doc th{background:var(--accent-soft)}
+  .doc hr{border:none;border-top:1px solid var(--line);margin:2em 0}
+
+  /* Mobile / iPad portrait */
+  .topbar{display:none}
+  .scrim{display:none}
+  @media (max-width:900px){
+    aside{position:fixed;left:0;top:0;z-index:40;transform:translateX(-100%);
+      transition:transform .25s ease;width:min(85vw,320px);box-shadow:var(--sh)}
+    body.open aside{transform:translateX(0)}
+    .scrim{display:block;position:fixed;inset:0;background:rgba(10,15,25,.35);
+      z-index:30;opacity:0;pointer-events:none;transition:opacity .25s}
+    body.open .scrim{opacity:1;pointer-events:auto}
+    .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;
+      background:color-mix(in srgb,var(--panel) 88%,transparent);
+      backdrop-filter:saturate(180%) blur(14px);
+      -webkit-backdrop-filter:saturate(180%) blur(14px);
+      border-bottom:1px solid var(--line);
+      padding:max(10px,env(safe-area-inset-top)) 16px 10px}
+    .topbar button{appearance:none;border:1px solid var(--line);background:var(--panel);
+      color:var(--ink);width:40px;height:40px;border-radius:11px;font-size:18px}
+    .topbar .t{font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;
+      text-overflow:ellipsis}
+    .doc{padding-top:28px}
+  }
+</style>
+</head>
+<body>
+<div class="scrim" onclick="closeNav()"></div>
+<div class="wrap">
+  <aside id="nav">
+    <h1>คู่มือสัญญา</h1>
+    <p class="sub">Freelance · Outsource · Contract · นายทุน</p>
+    <nav id="menu"></nav>
+  </aside>
+  <main>
+    <div class="topbar">
+      <button onclick="openNav()" aria-label="menu">☰</button>
+      <div class="t" id="topTitle">คู่มือสัญญา</div>
+    </div>
+    <article class="doc" id="doc">กำลังโหลด…</article>
+  </main>
+</div>
+
+<script>
+const DOCS = [
+  {g:"ภาพรวม", items:[
+    {f:"README.md", t:"README — เริ่มที่นี่", n:"·"},
+  ]},
+  {g:"ประเภทสัญญา", items:[
+    {f:"01-freelance-service-agreement.md", t:"Freelance Service Agreement", n:"01"},
+    {f:"02-outsourcing-service-agreement.md", t:"Outsourcing Service Agreement", n:"02"},
+    {f:"03-independent-contractor-agreement.md", t:"Independent Contractor Agreement", n:"03"},
+    {f:"04-fixed-term-employment-contract.md", t:"Fixed-term Employment Contract", n:"04"},
+    {f:"05-nda-confidentiality.md", t:"NDA / Confidentiality", n:"05"},
+    {f:"06-msa-sow.md", t:"MSA + SOW", n:"06"},
+    {f:"07-term-sheet.md", t:"Term Sheet", n:"07"},
+    {f:"08-shareholders-agreement.md", t:"Shareholders Agreement", n:"08"},
+    {f:"09-share-subscription-agreement.md", t:"Share Subscription Agreement", n:"09"},
+    {f:"10-convertible-note.md", t:"Convertible Note", n:"10"},
+    {f:"11-safe.md", t:"SAFE", n:"11"},
+    {f:"12-loan-agreement.md", t:"Loan Agreement", n:"12"},
+  ]},
+  {g:"เครื่องมือ & Checklist", items:[
+    {f:"90-checklist.md", t:"Checklist ก่อนเซ็น", n:"90"},
+    {f:"91-red-flags.md", t:"Red Flags ที่ต้องระวัง", n:"91"},
+    {f:"92-clause-library.md", t:"Clause Library", n:"92"},
+    {f:"93-questions-to-ask.md", t:"ประโยคที่ใช้ถาม", n:"93"},
+    {f:"94-safe-delivery.md", t:"วิธีส่งงานให้ปลอดภัย", n:"94"},
+    {f:"95-decision-tree-summary.md", t:"Decision Tree + สรุป", n:"95"},
+    {f:"96-references.md", t:"แหล่งอ้างอิง", n:"96"},
+    {f:"99-red-flags-all.md", t:"รวม Red Flags ทุกสัญญา", n:"99"},
+  ]},
+];
+
+const menu = document.getElementById('menu');
+const links = {};
+DOCS.forEach(sec=>{
+  const h=document.createElement('div');h.className='group';h.textContent=sec.g;
+  menu.appendChild(h);
+  sec.items.forEach(it=>{
+    const a=document.createElement('a');
+    a.href='#'+it.f;
+    a.innerHTML='<span class="n">'+it.n+'</span><span>'+it.t+'</span>';
+    a.onclick=()=>{ closeNav(); };
+    menu.appendChild(a);
+    links[it.f]={a,t:it.t};
+  });
+});
+
+async function load(file){
+  const doc=document.getElementById('doc');
+  const meta=links[file];
+  if(!meta){ location.hash='#README.md'; return; }
+  document.getElementById('topTitle').textContent=meta.t;
+  Object.values(links).forEach(l=>l.a.classList.remove('active'));
+  meta.a.classList.add('active');
+  doc.textContent='กำลังโหลด…';
+  try{
+    const res=await fetch(file,{cache:'no-cache'});
+    if(!res.ok) throw new Error(res.status);
+    const md=await res.text();
+    doc.innerHTML=marked.parse(md);
+    doc.querySelectorAll('a[href^="http"]').forEach(a=>a.target='_blank');
+    window.scrollTo(0,0);
+    document.querySelector('main').scrollTo?.(0,0);
+  }catch(e){
+    doc.innerHTML='<p>เปิดไฟล์ไม่ได้ ('+e.message+')</p>'+
+      '<p style="color:var(--muted)">ต้องเปิดผ่านเว็บ (GitHub Pages / เซิร์ฟเวอร์) '+
+      'ไม่ใช่เปิดไฟล์ตรง ๆ เพราะเบราว์เซอร์บล็อกการอ่านไฟล์แบบ file://</p>';
+  }
+}
+
+function openNav(){document.body.classList.add('open')}
+function closeNav(){document.body.classList.remove('open')}
+window.addEventListener('hashchange',()=>load(location.hash.slice(1)));
+load(location.hash.slice(1)||'README.md');
+</script>
+</body>
+</html>
