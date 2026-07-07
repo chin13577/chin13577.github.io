@@ -47,3 +47,19 @@ SOW = Statement of Work
 10. Client Responsibilities
 11. Assumptions
 12. Change Request
+
+---
+
+## ฐานทางกฎหมาย
+
+MSA (Master Service Agreement) คือ “สัญญากรอบ” (framework agreement) ที่คู่สัญญาตกลงเงื่อนไขหลักที่จะใช้กับธุรกรรมในอนาคตไว้ล่วงหน้า ส่วน SOW (Statement of Work) คือเอกสารระบุงาน ขอบเขต deliverables ระยะเวลา และราคาของงานแต่ละชิ้น ซึ่งมักออกภายใต้ MSA — โมเดลนี้ใช้กันแพร่หลายโดยเฉพาะงานบริการด้าน IT
+
+ในกฎหมายไทย MSA + SOW ไม่ได้มีชื่อเรียกเฉพาะในประมวลกฎหมาย โดยเนื้อแท้เป็น **สัญญาจ้างทำของ/สัญญาบริการ** (ป.พ.พ. มาตรา 587) ที่จัดโครงสร้างเอกสารแบบแยกกติกากลางออกจากรายละเอียดงานแต่ละเฟส — หลักการตีความและข้อควรระวังจึงเหมือนไฟล์ [01](01-freelance-service-agreement.md) และ [02](02-outsourcing-service-agreement.md)
+
+## ที่มา / อ้างอิง
+
+- Master service agreement (สัญญากรอบ + ใช้คู่กับ statement of work) — Wikipedia: https://en.wikipedia.org/wiki/Master_service_agreement
+- Statement of work (องค์ประกอบ: scope, deliverables, timeline, pricing, acceptance criteria) — Wikipedia: https://en.wikipedia.org/wiki/Statement_of_work
+- ป.พ.พ. ลักษณะ 7 จ้างทำของ (มาตรา 587–607) — สถาบันนิติธรรมาลัย: https://www.drthawip.com/civilandcommercialcode/087
+
+> เอกสารนี้เป็นโน้ตสรุป ไม่ใช่คำปรึกษากฎหมาย ดีลใหญ่ควรให้ทนายตรวจก่อนเซ็น
