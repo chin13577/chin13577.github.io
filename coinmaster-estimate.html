@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Master Clone — Plan & Manday Estimate</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #14101f;
+    --bg2: #1e1830;
+    --card: #262040;
+    --card2: #2e2750;
+    --gold: #ffc93c;
+    --gold-dim: #c99a1e;
+    --green: #4ade80;
+    --amber: #fbbf24;
+    --red: #f87171;
+    --blue: #60a5fa;
+    --purple: #a78bfa;
+    --text: #f1eefb;
+    --muted: #9b93b8;
+    --line: #3d3563;
+  }
+
+  html, body { height: 100%; }
+  body {
+    font-family: "Segoe UI", "Noto Sans Thai", Tahoma, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+  }
+
+  .deck { position: relative; width: 100%; height: 100vh; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: none;
+    flex-direction: column;
+    padding: 3.2rem 4rem 4.5rem;
+    overflow-y: auto;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(167,139,250,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(255,201,60,.07), transparent 60%),
+      var(--bg);
+  }
+  .slide.active { display: flex; animation: fadeIn .35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- typography ---------- */
+  h1 { font-size: 2.6rem; line-height: 1.2; }
+  h2 { font-size: 1.9rem; margin-bottom: .4rem; }
+  .kicker {
+    font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .6rem;
+  }
+  .sub { color: var(--muted); font-size: 1rem; margin-bottom: 1.4rem; }
+  .phase-mvp  { color: var(--green); }
+  .phase-p2   { color: var(--amber); }
+  .phase-p3   { color: var(--red); }
+
+  /* ---------- badges & chips ---------- */
+  .badge {
+    display: inline-block; padding: .18rem .65rem; border-radius: 999px;
+    font-size: .78rem; font-weight: 700; border: 1px solid var(--line);
+    background: var(--card); color: var(--muted); white-space: nowrap;
+  }
+  .badge.md { color: var(--gold); border-color: rgba(255,201,60,.35); }
+
+  /* ---------- feature grid ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .9rem; margin-top: .6rem; }
+  .feat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: .9rem 1rem; display: flex; gap: .8rem; align-items: flex-start;
+  }
+  .feat .ic {
+    font-size: 1.7rem; line-height: 1; flex: none;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.4));
+  }
+  .feat b { display: block; font-size: .95rem; margin-bottom: .15rem; }
+  .feat small { color: var(--muted); font-size: .78rem; line-height: 1.4; display: block; }
+  .feat .mds { margin-top: .4rem; display: flex; gap: .35rem; flex-wrap: wrap; }
+
+  /* ---------- tables ---------- */
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; margin-top: .8rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 640px; }
+  th, td { padding: .55rem .9rem; text-align: left; border-bottom: 1px solid var(--line); }
+  th { background: var(--card2); color: var(--gold); font-weight: 700; font-size: .82rem; letter-spacing: .04em; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  tr.total td { background: rgba(255,201,60,.08); font-weight: 700; color: var(--gold); }
+  td .dim { color: var(--muted); }
+
+  /* ---------- hero / title slide ---------- */
+  .center { justify-content: center; align-items: center; text-align: center; }
+  .slot {
+    display: inline-flex; gap: .5rem; background: linear-gradient(180deg,#3b2f6b,#241d45);
+    border: 3px solid var(--gold-dim); border-radius: 20px; padding: 1rem 1.3rem;
+    box-shadow: 0 10px 40px rgba(0,0,0,.5), inset 0 2px 0 rgba(255,255,255,.08);
+    margin-bottom: 1.6rem;
+  }
+  .slot .reel {
+    width: 74px; height: 84px; border-radius: 12px; background: #fdf6e3;
+    display: flex; align-items: center; justify-content: center; font-size: 2.6rem;
+    box-shadow: inset 0 -8px 14px rgba(0,0,0,.15);
+  }
+  .stats { display: flex; gap: 1rem; margin-top: 1.8rem; flex-wrap: wrap; justify-content: center; }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+    padding: 1rem 1.6rem; min-width: 170px;
+  }
+  .stat .v { font-size: 1.7rem; font-weight: 800; color: var(--gold); }
+  .stat .l { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ---------- roadmap ---------- */
+  .road { display: flex; align-items: stretch; gap: .6rem; margin-top: 1.4rem; flex-wrap: wrap; }
+  .stage {
+    flex: 1 1 150px; background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1rem; position: relative; min-width: 150px;
+  }
+  .stage .tag { font-weight: 800; font-size: 1rem; }
+  .stage p { font-size: .8rem; color: var(--muted); margin-top: .4rem; line-height: 1.5; }
+  .stage .arrow {
+    position: absolute; right: -1rem; top: 50%; transform: translateY(-50%);
+    color: var(--gold); font-size: 1.1rem; z-index: 2;
+  }
+  .stage.hl { border-color: rgba(255,201,60,.5); background: rgba(255,201,60,.06); }
+
+  /* ---------- plan cards ---------- */
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1rem; }
+  .plan {
+    background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 1.3rem 1.4rem;
+  }
+  .plan.b { border-color: rgba(96,165,250,.45); }
+  .plan h3 { font-size: 1.15rem; margin-bottom: .2rem; }
+  .plan .who { color: var(--muted); font-size: .85rem; margin-bottom: .8rem; }
+  .plan ul { list-style: none; }
+  .plan li { font-size: .88rem; padding: .3rem 0; border-bottom: 1px dashed var(--line); display: flex; justify-content: space-between; gap: 1rem; }
+  .plan li:last-child { border-bottom: none; }
+  .plan li b { color: var(--gold); white-space: nowrap; }
+
+  .note {
+    margin-top: auto; padding-top: 1rem; font-size: .82rem; color: var(--muted);
+    border-top: 1px dashed var(--line);
+  }
+  .callout {
+    margin-top: 1rem; background: rgba(255,201,60,.07); border: 1px solid rgba(255,201,60,.3);
+    border-radius: 12px; padding: .85rem 1.1rem; font-size: .92rem; line-height: 1.6;
+  }
+  .callout b { color: var(--gold); }
+
+  /* ---------- loop diagram ---------- */
+  .loop { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin-top: 1.2rem; }
+  .loop .n {
+    background: var(--card2); border: 1px solid var(--line); border-radius: 999px;
+    padding: .5rem 1rem; font-size: .9rem; font-weight: 600;
+  }
+  .loop .a { color: var(--gold); font-weight: 800; }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 3.4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 1.2rem; background: rgba(20,16,31,.9); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--line); z-index: 10;
+  }
+  .nav button {
+    background: var(--card); color: var(--text); border: 1px solid var(--line);
+    border-radius: 10px; padding: .45rem 1.1rem; font-size: .9rem; cursor: pointer;
+  }
+  .nav button:hover { border-color: var(--gold); color: var(--gold); }
+  .dots { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: center; }
+  .dots span {
+    width: 9px; height: 9px; border-radius: 50%; background: var(--line); cursor: pointer;
+  }
+  .dots span.on { background: var(--gold); }
+  .pageno { color: var(--muted); font-size: .82rem; min-width: 4.5rem; text-align: right; }
+
+  @media (max-width: 720px) {
+    .slide { padding: 1.6rem 1.2rem 4.5rem; }
+    h1 { font-size: 1.8rem; } h2 { font-size: 1.4rem; }
+    .plans { grid-template-columns: 1fr; }
+    .stage .arrow { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1 : TITLE -->
+  <section class="slide center">
+    <div class="slot">
+      <div class="reel">🎰</div><div class="reel">🪙</div><div class="reel">⚔️</div><div class="reel">🛡️</div>
+    </div>
+    <div class="kicker">Development Plan &amp; Estimate</div>
+    <h1>Coin Master Clone</h1>
+    <p class="sub" style="margin-top:.6rem">แผนพัฒนาแบ่ง 3 Phase · ประเมิน Manday · เปรียบเทียบ Plan A / Plan B</p>
+    <div class="stats">
+      <div class="stat"><div class="v">24</div><div class="l">Systems ทั้งหมด</div></div>
+      <div class="stat"><div class="v">~324–402</div><div class="l">Dev Manday</div></div>
+      <div class="stat"><div class="v">7–9 เดือน</div><div class="l">Timeline โดยประมาณ</div></div>
+      <div class="stat"><div class="v">PlayFab</div><div class="l">Backend Platform</div></div>
+    </div>
+  </section>
+
+  <!-- 2 : ASSUMPTIONS / PLANS -->
+  <section class="slide">
+    <div class="kicker">Overview</div>
+    <h2>สมมติฐาน &amp; 2 ทางเลือกของทีม</h2>
+    <p class="sub">Client = Unity (senior 1 + mid 1) · Backend บน PlayFab (CloudScript / Azure Functions) · ตัวเลขเป็น dev MD ไม่รวม art, game design, content, QA เฉพาะทาง</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>🅰️ Plan A — PlayFab-only</h3>
+        <div class="who">ทีม 3 คน · client 2 + PlayFab dev 1 (backend 1 คน)</div>
+        <ul>
+          <li>Dev MD รวม <b>~324 MD</b></li>
+          <li>+ QA / Integration / Polish (~30%) <b>~420 MD</b></li>
+          <li>Timeline (คอขวด backend 1 คน) <b>~8–9 เดือน</b></li>
+          <li>ความเสี่ยง <b style="color:var(--red)">Bus factor สูง</b></li>
+        </ul>
+      </div>
+      <div class="plan b">
+        <h3>🅱️ Plan B — PlayFab + Mid Backend</h3>
+        <div class="who">ทีม 4 คน · client 2 + backend 2 (PlayFab dev + mid backend ทำ custom)</div>
+        <ul>
+          <li>Dev MD รวม <b>~402 MD</b></li>
+          <li>+ QA / Integration / Polish (~30%) <b>~520 MD</b></li>
+          <li>Timeline (backend ขนานกันได้) <b>~7–7.5 เดือน</b></li>
+          <li>ได้เพิ่ม <b style="color:var(--blue)">Realtime chat · Anti-cheat · Scale</b></li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">💡 <b>Plan B ใช้ MD มากกว่า แต่เสร็จเร็วกว่า</b> — เพราะ Plan A ติดคอขวดที่ backend คนเดียว (166 MD) ส่วน Plan B เติมคนตรงกองงานที่ช้าที่สุดพอดี</div>
+  </section>
+
+  <!-- 3 : ROADMAP -->
+  <section class="slide">
+    <div class="kicker">Roadmap</div>
+    <h2>เส้นทางพัฒนา: MVP → Soft Launch → P2 → P3</h2>
+    <p class="sub">Soft launch คือจุดตัดสินใจ — ถ้า retention ดีค่อยลงทุน Phase 2/3 ต่อ</p>
+    <div class="road">
+      <div class="stage hl"><div class="tag phase-mvp">🟢 MVP</div><p>Core loop เล่นวนได้จริง<br><b>~132 MD · 3–4 เดือน</b></p><div class="arrow">▶</div></div>
+      <div class="stage"><div class="tag" style="color:var(--purple)">🚀 Soft Launch</div><p>ตลาดเล็กใน SEA<br>วัด retention D1/D7/D30<br>พิสูจน์ core loop + ระบบ</p><div class="arrow">▶</div></div>
+      <div class="stage"><div class="tag phase-p2">🟡 Phase 2</div><p>Retention &amp; Depth<br><b>~103 MD · 2.5–3 เดือน</b><br>จุดที่ควรรับ mid backend</p><div class="arrow">▶</div></div>
+      <div class="stage"><div class="tag phase-p3">🔴 Phase 3</div><p>Social &amp; LiveOps<br><b>~89 MD · 2.5–3 เดือน</b></p><div class="arrow">▶</div></div>
+      <div class="stage"><div class="tag" style="color:var(--gold)">🌏 Global Launch</div><p>เปิดเต็ม SEA → โลก<br>LiveOps รันเต็มรูปแบบ</p></div>
+    </div>
+    <div class="callout">🎯 กลยุทธ์แนะนำ: เริ่ม <b>MVP ด้วย Plan A</b> (ถูก/เร็ว) → soft launch พิสูจน์เกม → <b>รับ mid backend ต้น Phase 2</b> แล้วเดินต่อแบบ Plan B</div>
+    <div class="note">Core Game Loop: Spin → Earn Coins / Attack / Raid / Shield → Upgrade Village → Complete → Unlock ใหม่ → Spin อีก</div>
+  </section>
+
+  <!-- 4 : MVP FEATURES -->
+  <section class="slide">
+    <div class="kicker phase-mvp">🟢 MVP — Playable Core</div>
+    <h2>Feature Set <span class="badge md">Plan A ~132 MD · Plan B ~173 MD</span></h2>
+    <p class="sub">เป้าหมาย: core loop ครบวงจร พร้อม soft launch เพื่อวัด retention · ระยะเวลา ~3–4 เดือน</p>
+    <div class="grid">
+      <div class="feat"><span class="ic">🎰</span><div><b>1. Core Gameplay</b><small>Spin machine · Free/Buy/Auto spin · Multiplier x2–x100+ · RNG reward</small><div class="mds"><span class="badge">Client 12</span><span class="badge">PlayFab 10</span><span class="badge md">+B 5</span></div></div></div>
+      <div class="feat"><span class="ic">🪙</span><div><b>2. Economy</b><small>Coins · Spins/Energy · XP · Premium currency · Coin/Spin sink</small><div class="mds"><span class="badge">Client 5</span><span class="badge">PlayFab 8</span><span class="badge md">+B 8</span></div></div></div>
+      <div class="feat"><span class="ic">🏝️</span><div><b>3. Village</b><small>Build · Upgrade · Complete · Unlock ใหม่ · Theme · ราคาเพิ่มตามเลเวล</small><div class="mds"><span class="badge">Client 12</span><span class="badge">PlayFab 5</span></div></div></div>
+      <div class="feat"><span class="ic">⚔️</span><div><b>4. Attack</b><small>Random target · เลือกตึกโจมตี · Shield protection · Revenge</small><div class="mds"><span class="badge">Client 8</span><span class="badge">PlayFab 6</span><span class="badge md">+B 6</span></div></div></div>
+      <div class="feat"><span class="ic">⛏️</span><div><b>5. Raid</b><small>Random raid target · Digging mini game · Steal coins · Perfect raid</small><div class="mds"><span class="badge">Client 8</span><span class="badge">PlayFab 5</span></div></div></div>
+      <div class="feat"><span class="ic">🛡️</span><div><b>6. Shield</b><small>เก็บจาก spin · กัน attack · Shield limit · แปลงเป็น coins</small><div class="mds"><span class="badge">Client 4</span><span class="badge">PlayFab 3</span></div></div></div>
+      <div class="feat"><span class="ic">🎁</span><div><b>14. Daily Reward</b><small>Login reward · Streak · Free spin/coin/chest</small><div class="mds"><span class="badge">Client 4</span><span class="badge">PlayFab 3</span></div></div></div>
+      <div class="feat"><span class="ic">🛒</span><div><b>15. Shop + IAP</b><small>Buy spins/coins/chest · Receipt validation ฝั่ง server</small><div class="mds"><span class="badge">Client 6</span><span class="badge">PlayFab 8</span><span class="badge md">+B 4</span></div></div></div>
+      <div class="feat"><span class="ic">🖥️</span><div><b>23. Backend Core</b><small>Server-authoritative spin · Save/Sync · Economy validation · Anti-cheat</small><div class="mds"><span class="badge">PlayFab 15</span><span class="badge md">+B 12 (infra/CI)</span></div></div></div>
+      <div class="feat"><span class="ic">📊</span><div><b>24. Analytics</b><small>Spin/Purchase/Retention tracking · Funnel · Economy flow</small><div class="mds"><span class="badge">Client 4</span><span class="badge">PlayFab 6</span><span class="badge md">+B 6</span></div></div></div>
+    </div>
+    <div class="callout">⚠️ กติกาสำคัญ: <b>Spin x100 = 1 request</b> — resolve batch ฝั่ง server ทั้งชุด กัน rate limit + ได้ server-authoritative ไปในตัว</div>
+  </section>
+
+  <!-- 5 : MVP TABLE -->
+  <section class="slide">
+    <div class="kicker phase-mvp">🟢 MVP — Manday Breakdown</div>
+    <h2>ตารางประเมิน MVP</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Feature</th><th class="num">Client</th><th class="num">PlayFab</th><th class="num">รวม (A)</th><th class="num">+Custom (B)</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Core Gameplay (spin, RNG, multiplier, auto)</td><td class="num">12</td><td class="num">10</td><td class="num">22</td><td class="num">+5</td></tr>
+          <tr><td>2</td><td>Economy (currency, sink, validation)</td><td class="num">5</td><td class="num">8</td><td class="num">13</td><td class="num">+8</td></tr>
+          <tr><td>3</td><td>Village (build/upgrade/unlock)</td><td class="num">12</td><td class="num">5</td><td class="num">17</td><td class="num dim">–</td></tr>
+          <tr><td>4</td><td>Attack (matchmaking, reward)</td><td class="num">8</td><td class="num">6</td><td class="num">14</td><td class="num">+6</td></tr>
+          <tr><td>5</td><td>Raid (dig minigame, steal)</td><td class="num">8</td><td class="num">5</td><td class="num">13</td><td class="num dim">–</td></tr>
+          <tr><td>6</td><td>Shield</td><td class="num">4</td><td class="num">3</td><td class="num">7</td><td class="num dim">–</td></tr>
+          <tr><td>14</td><td>Daily Reward (streak, claim)</td><td class="num">4</td><td class="num">3</td><td class="num">7</td><td class="num dim">–</td></tr>
+          <tr><td>15</td><td>Shop + IAP validation</td><td class="num">6</td><td class="num">8</td><td class="num">14</td><td class="num">+4</td></tr>
+          <tr><td>23</td><td>Backend Core glue (server spin, save/sync)</td><td class="num dim">–</td><td class="num">15</td><td class="num">15</td><td class="num">+12</td></tr>
+          <tr><td>24</td><td>Analytics (event hook + pipeline)</td><td class="num">4</td><td class="num">6</td><td class="num">10</td><td class="num">+6</td></tr>
+          <tr class="total"><td></td><td>MVP Subtotal</td><td class="num">63</td><td class="num">69</td><td class="num">132</td><td class="num">+41</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">🟢 <b>Plan A ~132 MD · Plan B ~173 MD</b> — timeline ~3–4 เดือน → จบแล้ว <b>Soft Launch ที่ SEA</b> เพื่อวัด retention ก่อนลงทุนต่อ</div>
+  </section>
+
+  <!-- 6 : P2 FEATURES -->
+  <section class="slide">
+    <div class="kicker phase-p2">🟡 Phase 2 — Retention &amp; Depth</div>
+    <h2>Feature Set <span class="badge md">Plan A ~103 MD · Plan B ~109 MD</span></h2>
+    <p class="sub">เป้าหมาย: เพิ่มเหตุผลให้ผู้เล่นกลับมาทุกวัน + เริ่มระบบทำเงินจริงจัง · ~2.5–3 เดือน · จุดที่ควรรับ mid backend เข้าทีม</p>
+    <div class="grid">
+      <div class="feat"><span class="ic">🦊</span><div><b>7. Pet</b><small>Unlock · Feed · Timer · Level up · Bonus (raid/attack/coin)</small><div class="mds"><span class="badge">Client 6</span><span class="badge">PlayFab 4</span></div></div></div>
+      <div class="feat"><span class="ic">🃏</span><div><b>8. Card Collection</b><small>Card sets · Complete set reward · Rare/Gold/Seasonal cards</small><div class="mds"><span class="badge">Client 8</span><span class="badge">PlayFab 6</span></div></div></div>
+      <div class="feat"><span class="ic">🧰</span><div><b>9. Chest</b><small>Wooden/Golden/Magical/Seasonal · Drop table ฝั่ง server</small><div class="mds"><span class="badge">Client 5</span><span class="badge">PlayFab 5</span></div></div></div>
+      <div class="feat"><span class="ic">🎉</span><div><b>11. Event Framework</b><small>Framework + events: Attack/Raid Madness · Village Master · Gold Rush ฯลฯ</small><div class="mds"><span class="badge">Client 12</span><span class="badge">PlayFab 10</span><span class="badge md">+B 6</span></div></div></div>
+      <div class="feat"><span class="ic">📋</span><div><b>13. Mission / Quest</b><small>Daily/Event/Spin/Attack/Raid/Build mission · Reward claim</small><div class="mds"><span class="badge">Client 8</span><span class="badge">PlayFab 6</span></div></div></div>
+      <div class="feat"><span class="ic">📈</span><div><b>19. Progression</b><small>Player level · Village/Card/Pet/Event/Tournament progress</small><div class="mds"><span class="badge">Client 5</span><span class="badge">PlayFab 3</span></div></div></div>
+      <div class="feat"><span class="ic">🏆</span><div><b>20. Achievement</b><small>Village/Spin/Attack/Raid/Card set/Collection achievement</small><div class="mds"><span class="badge">Client 5</span><span class="badge">PlayFab 4</span></div></div></div>
+      <div class="feat"><span class="ic">💎</span><div><b>21. Monetization</b><small>IAP packages · Battle/Season pass · Dynamic pricing</small><div class="mds"><span class="badge">Client 6</span><span class="badge">PlayFab 10</span></div></div></div>
+    </div>
+    <div class="callout">💡 Mission / Progression / Achievement ใช้โครงระบบ progress-tracking ร่วมกันได้ — ทำ framework ครั้งเดียวแล้ว config ต่อ</div>
+  </section>
+
+  <!-- 7 : P2 TABLE -->
+  <section class="slide">
+    <div class="kicker phase-p2">🟡 Phase 2 — Manday Breakdown</div>
+    <h2>ตารางประเมิน Phase 2</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Feature</th><th class="num">Client</th><th class="num">PlayFab</th><th class="num">รวม (A)</th><th class="num">+Custom (B)</th></tr></thead>
+        <tbody>
+          <tr><td>7</td><td>Pet (timer, level, bonus)</td><td class="num">6</td><td class="num">4</td><td class="num">10</td><td class="num dim">–</td></tr>
+          <tr><td>8</td><td>Card Collection (set, drop)</td><td class="num">8</td><td class="num">6</td><td class="num">14</td><td class="num dim">–</td></tr>
+          <tr><td>9</td><td>Chest (drop table server-side)</td><td class="num">5</td><td class="num">5</td><td class="num">10</td><td class="num dim">–</td></tr>
+          <tr><td>11</td><td>Event framework + events</td><td class="num">12</td><td class="num">10</td><td class="num">22</td><td class="num">+6</td></tr>
+          <tr><td>13</td><td>Mission / Quest (progress, claim)</td><td class="num">8</td><td class="num">6</td><td class="num">14</td><td class="num dim">–</td></tr>
+          <tr><td>19</td><td>Progression</td><td class="num">5</td><td class="num">3</td><td class="num">8</td><td class="num dim">–</td></tr>
+          <tr><td>20</td><td>Achievement</td><td class="num">5</td><td class="num">4</td><td class="num">9</td><td class="num dim">–</td></tr>
+          <tr><td>21</td><td>Monetization (season pass, dynamic price)</td><td class="num">6</td><td class="num">10</td><td class="num">16</td><td class="num dim">–</td></tr>
+          <tr class="total"><td></td><td>Phase 2 Subtotal</td><td class="num">55</td><td class="num">48</td><td class="num">103</td><td class="num">+6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">🟡 <b>Plan A ~103 MD · Plan B ~109 MD</b> — timeline ~2.5–3 เดือน · งาน backend เริ่มหนัก (Event + Monetization) = จังหวะที่ mid backend คนที่ 2 คุ้มค่าตัวพอดี</div>
+  </section>
+
+  <!-- 8 : P3 FEATURES -->
+  <section class="slide">
+    <div class="kicker phase-p3">🔴 Phase 3 — Social &amp; LiveOps</div>
+    <h2>Feature Set <span class="badge md">Plan A ~89 MD · Plan B ~120 MD</span></h2>
+    <p class="sub">เป้าหมาย: social loop + เครื่องมือ LiveOps เพื่อรันเกมระยะยาวและเตรียม global launch · ~2.5–3 เดือน</p>
+    <div class="grid">
+      <div class="feat"><span class="ic">🔄</span><div><b>10. Card Trading</b><small>Trade กับเพื่อน · Send/Receive · Gold card event · Anti-dupe transaction</small><div class="mds"><span class="badge">Client 6</span><span class="badge">PlayFab 8</span><span class="badge md">+B 5</span></div></div></div>
+      <div class="feat"><span class="ic">🏅</span><div><b>12. Tournament</b><small>Leaderboard · Event points · Rank/Milestone rewards · Time-limited</small><div class="mds"><span class="badge">Client 6</span><span class="badge">PlayFab 6</span><span class="badge md">+B 5</span></div></div></div>
+      <div class="feat"><span class="ic">🎀</span><div><b>16. Bundle / Offer</b><small>Starter pack · Flash sale · Personalized offer · Timer-based</small><div class="mds"><span class="badge">Client 6</span><span class="badge">PlayFab 6</span></div></div></div>
+      <div class="feat"><span class="ic">👥</span><div><b>17. Friends</b><small>Facebook login · Add/Invite · Send/Receive spins · Visit/Attack/Raid friend</small><div class="mds"><span class="badge">Client 8</span><span class="badge">PlayFab 7</span></div></div></div>
+      <div class="feat"><span class="ic">🏰</span><div><b>18. Team / Clan</b><small>Join/Create · <u>Team chat (realtime)</u> · Team chest/event/reward · Card trade</small><div class="mds"><span class="badge">Client 10</span><span class="badge">PlayFab 12</span><span class="badge md">+B 15</span></div></div></div>
+      <div class="feat"><span class="ic">🎛️</span><div><b>22. LiveOps</b><small>Remote config · Event/Offer rotation · A/B testing · Push · Segmentation</small><div class="mds"><span class="badge">Client 4</span><span class="badge">PlayFab 10</span><span class="badge md">+B 6</span></div></div></div>
+    </div>
+    <div class="callout">⚠️ <b>Realtime clan chat คือจุดอ่อนของ PlayFab</b> — Plan A ต้อง workaround/ต่อ service เสริม · Plan B ให้ mid backend ทำ chat service จริง (+15 MD แต่ได้คุณภาพจริง)</div>
+  </section>
+
+  <!-- 9 : P3 TABLE -->
+  <section class="slide">
+    <div class="kicker phase-p3">🔴 Phase 3 — Manday Breakdown</div>
+    <h2>ตารางประเมิน Phase 3</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Feature</th><th class="num">Client</th><th class="num">PlayFab</th><th class="num">รวม (A)</th><th class="num">+Custom (B)</th></tr></thead>
+        <tbody>
+          <tr><td>10</td><td>Card Trading (transaction, anti-dupe)</td><td class="num">6</td><td class="num">8</td><td class="num">14</td><td class="num">+5</td></tr>
+          <tr><td>12</td><td>Tournament / Leaderboard</td><td class="num">6</td><td class="num">6</td><td class="num">12</td><td class="num">+5</td></tr>
+          <tr><td>16</td><td>Bundle / Offer (timer, flash sale)</td><td class="num">6</td><td class="num">6</td><td class="num">12</td><td class="num dim">–</td></tr>
+          <tr><td>17</td><td>Friends (FB login, social graph)</td><td class="num">8</td><td class="num">7</td><td class="num">15</td><td class="num dim">–</td></tr>
+          <tr><td>18</td><td>Team / Clan (+ realtime chat)</td><td class="num">10</td><td class="num">12</td><td class="num">22</td><td class="num">+15</td></tr>
+          <tr><td>22</td><td>LiveOps (remote config, AB, push, segment)</td><td class="num">4</td><td class="num">10</td><td class="num">14</td><td class="num">+6</td></tr>
+          <tr class="total"><td></td><td>Phase 3 Subtotal</td><td class="num">40</td><td class="num">49</td><td class="num">89</td><td class="num">+31</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">🔴 <b>Plan A ~89 MD · Plan B ~120 MD</b> — timeline ~2.5–3 เดือน → จบแล้วพร้อม <b>Global Launch</b></div>
+  </section>
+
+  <!-- 10 : SUMMARY -->
+  <section class="slide">
+    <div class="kicker">Summary</div>
+    <h2>สรุปรวมทั้ง 3 Phase</h2>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th class="num">🅰️ Plan A — PlayFab-only (3 คน)</th><th class="num">🅱️ Plan B — + Mid Backend (4 คน)</th></tr></thead>
+        <tbody>
+          <tr><td>🟢 MVP</td><td class="num">132</td><td class="num">173</td></tr>
+          <tr><td>🟡 Phase 2</td><td class="num">103</td><td class="num">109</td></tr>
+          <tr><td>🔴 Phase 3</td><td class="num">89</td><td class="num">120</td></tr>
+          <tr><td><b>รวม Dev MD</b></td><td class="num"><b>~324</b></td><td class="num"><b>~402</b></td></tr>
+          <tr><td>+ QA / Integration / Polish (~30%)</td><td class="num">~420 MD</td><td class="num">~520 MD</td></tr>
+          <tr class="total"><td>Timeline (ตามคอขวด backend)</td><td class="num">~8–9 เดือน</td><td class="num">~7–7.5 เดือน</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">📌 <b>Plan A ถูกกว่าแต่ช้ากว่า</b> — backend 166 MD กองที่คนเดียว (คอขวด + bus factor) · <b>Plan B แพงกว่า ~100 MD แต่เสร็จเร็วกว่า ~1–1.5 เดือน</b> และได้ระบบที่ scale ต่อได้</div>
+    <div class="callout" style="border-color:rgba(74,222,128,.4);background:rgba(74,222,128,.06)">✅ <b>คำแนะนำ:</b> เริ่ม MVP ด้วย Plan A (พิสูจน์เกมเร็ว/ถูก ~3–4 เดือน) → Soft launch SEA วัด retention → รับ mid backend <b>ต้น Phase 2</b> แล้วเดินต่อแบบ Plan B</div>
+    <div class="note">ตัวเลขไม่รวม: art/animation · game design &amp; economy balancing · content production (village หลายร้อยด่าน) · QA เฉพาะทาง · เผื่อ effective capacity ~17 MD/คน/เดือน</div>
+  </section>
+
+</div>
+
+<div class="nav">
+  <button id="prev">◀ ก่อนหน้า</button>
+  <div class="dots" id="dots"></div>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <span class="pageno" id="pageno"></span>
+    <button id="next">ถัดไป ▶</button>
+  </div>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const dots = document.getElementById('dots');
+  const pageno = document.getElementById('pageno');
+  let cur = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.onclick = () => go(i);
+    dots.appendChild(d);
+  });
+
+  function go(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, j) => s.classList.toggle('active', j === cur));
+    [...dots.children].forEach((d, j) => d.classList.toggle('on', j === cur));
+    pageno.textContent = (cur + 1) + ' / ' + slides.length;
+    location.hash = 's' + (cur + 1);
+  }
+
+  document.getElementById('prev').onclick = () => go(cur - 1);
+  document.getElementById('next').onclick = () => go(cur + 1);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') go(cur + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') go(cur - 1);
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(slides.length - 1);
+  });
+
+  let touchX = null;
+  document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 60) go(cur + (dx < 0 ? 1 : -1));
+    touchX = null;
+  });
+
+  const m = location.hash.match(/^#s(\d+)$/);
+  go(m ? parseInt(m[1]) - 1 : 0);
+</script>
+</body>
+</html>
