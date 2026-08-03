@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beginner Dumbbell Training Plan</title>
+  <style>
+    :root { --ink:#15251f; --muted:#62706b; --paper:#f7f8f4; --card:#fff; --green:#1f6d51; --mint:#dff0e7; --gold:#e5a83d; --line:#dce5df; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+    .wrap { max-width:1050px; margin:auto; padding:28px 18px 56px; }
+    header { background:linear-gradient(135deg,#143f31,#2c805e); color:#fff; border-radius:24px; padding:32px; box-shadow:0 14px 35px #164b3024; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,5vw,3.4rem); line-height:1.05; letter-spacing:-.04em; }
+    h2 { margin:0 0 10px; font-size:1.45rem; } h3 { margin:0 0 7px; font-size:1.08rem; }
+    p { margin:7px 0; } .sub { color:#d8eee3; max-width:680px; }
+    .stats { display:flex; flex-wrap:wrap; gap:10px; margin-top:22px; }
+    .stat { background:#ffffff18; border:1px solid #ffffff35; padding:9px 13px; border-radius:999px; font-size:.9rem; }
+    .notice { margin:22px 0; padding:15px 18px; border-left:4px solid var(--gold); background:#fff8e9; border-radius:10px; color:#5e461d; }
+    .section-title { display:flex; justify-content:space-between; align-items:end; gap:15px; margin:30px 0 12px; }
+    .section-title p { color:var(--muted); margin:0; font-size:.95rem; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:15px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:19px; box-shadow:0 5px 18px #18372b09; }
+    .day { border-top:5px solid var(--green); } .day.rest { border-top-color:#b4c2bb; }
+    .tag { display:inline-block; color:var(--green); background:var(--mint); font-weight:700; font-size:.78rem; padding:4px 8px; border-radius:999px; margin-bottom:10px; }
+    .exercise { padding:13px 0; border-top:1px solid var(--line); }
+    .exercise:first-of-type { border-top:0; padding-top:5px; }
+    .dose { color:var(--green); font-weight:700; font-size:.92rem; }
+    ul { margin:9px 0 0; padding-left:20px; } li { margin:5px 0; }
+    .check { display:flex; align-items:center; gap:10px; margin-top:11px; color:var(--muted); font-size:.9rem; }
+    input[type=checkbox] { width:19px; height:19px; accent-color:var(--green); }
+    .two { display:grid; grid-template-columns:1fr 1fr; gap:15px; } @media(max-width:650px){.two{grid-template-columns:1fr} header{padding:25px 21px}.wrap{padding:18px 13px 45px}}
+    .button { border:0; border-radius:10px; background:var(--green); color:#fff; padding:10px 14px; font-weight:700; cursor:pointer; }
+    .button.secondary { background:#edf3ef; color:var(--green); }
+    .progress { height:10px; border-radius:10px; background:#e6eee9; overflow:hidden; margin:12px 0; } .bar{height:100%; width:0; background:var(--green); transition:.25s}
+    footer { color:var(--muted); text-align:center; font-size:.86rem; margin-top:30px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Your first 4 weeks of strength</h1>
+      <p class="sub">A simple, full-body dumbbell plan using your 10–25 kg pairs and one long chair. Start light, learn the movement, and leave a few good repetitions “in the tank.”</p>
+      <div class="stats"><span class="stat">90 kg · 183 cm</span><span class="stat">Equipment: dumbbells + sturdy chair</span><span class="stat">3 sessions / week · 35–45 min</span></div>
+    </header>
+
+    <div class="notice"><strong>Before you start:</strong> Use a chair that cannot slide or tip. Clear the floor, wear stable shoes, and stop for sharp pain, chest pain, dizziness, or unusual shortness of breath. If you have an injury, heart condition, or have been inactive for a long time, get medical clearance first.</div>
+
+    <div class="section-title"><div><h2>Weekly schedule</h2><p>For example: Monday, Wednesday, Friday. Rest or walk gently on the other days.</p></div><button class="button secondary" id="reset">Reset checkmarks</button></div>
+    <div class="grid">
+      <section class="card day"><span class="tag">DAY A · FULL BODY</span><h3>Squat, push, pull</h3>
+        <div class="exercise"><strong>Goblet squat</strong><div class="dose">3 sets × 8–12 reps · 10–20 kg</div><small>Hold one dumbbell at your chest; sit between your hips, then stand tall.</small></div>
+        <div class="exercise"><strong>One-arm dumbbell row</strong><div class="dose">3 × 8–12 / side · 10–20 kg</div><small>Support one hand on the chair. Pull elbow toward your hip; keep your back long.</small></div>
+        <div class="exercise"><strong>Floor dumbbell press</strong><div class="dose">3 × 8–12 · 10–15 kg each</div><small>Lie on the floor, knees bent. Lower elbows gently until triceps touch the floor.</small></div>
+        <div class="exercise"><strong>Romanian deadlift</strong><div class="dose">3 × 8–12 · 10–20 kg each</div><small>Hinge hips back with a soft knee bend; keep dumbbells close to your legs.</small></div>
+        <label class="check"><input type="checkbox" data-session="a"> Completed Day A</label>
+      </section>
+      <section class="card day"><span class="tag">DAY B · FULL BODY</span><h3>Hinge, press, carry</h3>
+        <div class="exercise"><strong>Reverse lunge</strong><div class="dose">3 × 6–10 / side · bodyweight or 10 kg each</div><small>Step back softly and keep the front knee tracking over your middle toes.</small></div>
+        <div class="exercise"><strong>Standing overhead press</strong><div class="dose">3 × 6–10 · 10 kg each</div><small>Brace your ribs down; press without leaning back. Use one dumbbell if needed.</small></div>
+        <div class="exercise"><strong>Chair-supported split squat</strong><div class="dose">2 × 8–10 / side · bodyweight or 10 kg</div><small>Use the chair only for balance. Lower under control, pushing through the front foot.</small></div>
+        <div class="exercise"><strong>Farmer carry</strong><div class="dose">3 rounds × 30–45 sec · 15–25 kg each</div><small>Walk slowly and tall. Stop before your grip or posture breaks.</small></div>
+        <label class="check"><input type="checkbox" data-session="b"> Completed Day B</label>
+      </section>
+      <section class="card day"><span class="tag">DAY C · FULL BODY</span><h3>Strength and control</h3>
+        <div class="exercise"><strong>Dumbbell deadlift</strong><div class="dose">3 × 8–12 · 15–25 kg each</div><small>Brace before lifting; stand by driving the floor away. Do not round your back.</small></div>
+        <div class="exercise"><strong>Incline push-up on chair</strong><div class="dose">3 × 6–12 · bodyweight</div><small>Hands on a stable chair, body straight. Use a wall or floor if the chair moves.</small></div>
+        <div class="exercise"><strong>Seated curl</strong><div class="dose">2 × 10–15 · 10 kg each</div><small>Sit tall, keep elbows still, and lower slowly. Choose 5–8 kg if 10 kg is too heavy.</small></div>
+        <div class="exercise"><strong>Suitcase carry</strong><div class="dose">3 × 30 sec / side · 15–25 kg</div><small>Hold one dumbbell; resist leaning. Switch sides each round.</small></div>
+        <label class="check"><input type="checkbox" data-session="c"> Completed Day C</label>
+      </section>
+    </div>
+
+    <div class="section-title"><div><h2>Every session</h2><p>Quality beats load. Rest 60–120 seconds between sets.</p></div></div>
+    <div class="two"><section class="card"><h3>5-minute warm-up</h3><ul><li>1 minute easy marching</li><li>10 bodyweight squats</li><li>10 hip hinges</li><li>8 wall or chair push-ups</li><li>Arm circles and ankle rolls</li></ul></section><section class="card"><h3>How to progress</h3><ul><li>Weeks 1–2: 2 sets if you are very sore; otherwise use the listed sets.</li><li>When every set reaches the top of the rep range with good form, add 1–2 reps or move up one dumbbell size.</li><li>Keep 2–3 reps in reserve; never force a failed rep.</li></ul></section></div>
+
+    <div class="card" style="margin-top:15px"><h3>Weekly completion</h3><div class="progress"><div class="bar" id="bar"></div></div><span id="status" style="color:var(--muted)">0 of 3 sessions complete</span></div>
+    <footer>This is general fitness education, not a diagnosis or personal medical prescription. Your measurements help describe your starting point; they do not determine a safe lifting weight.</footer>
+  </main>
+  <script>
+    const boxes=[...document.querySelectorAll('input[type=checkbox]')], bar=document.querySelector('#bar'), status=document.querySelector('#status');
+    function update(){const n=boxes.filter(x=>x.checked).length; bar.style.width=(n/3*100)+'%'; status.textContent=`${n} of 3 sessions complete`; boxes.forEach((x,i)=>localStorage.setItem('wt-session-'+i,x.checked));}
+    boxes.forEach((x,i)=>{x.checked=localStorage.getItem('wt-session-'+i)==='true'; x.addEventListener('change',update)}); document.querySelector('#reset').onclick=()=>{boxes.forEach(x=>x.checked=false); update()}; update();
+  </script>
+</body>
+</html>
